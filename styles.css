@@ -200,8 +200,8 @@ body.wlg-no-domain .wlg-domain-name {
 	display: none;
 }
 
-body.wlg-no-favicon .wlg-domain-icon {
-	display: none !important;
+body.wlg-no-favicon .wlg-domain .wlg-domain-icon {
+	display: none;
 }
 
 body.is-mobile .wlg-gallery {
@@ -365,7 +365,11 @@ body.wlg-plain.wlg-horizontal .wlg-card .wlg-text {
 	cursor: grabbing;
 }
 
-.wlg-player.is-dragging .wlg-player-webview {
+.wlg-player.is-dragging .wlg-player-frame.is-resized {
+	aspect-ratio: auto;
+}
+
+.wlg-player-webview {
 	pointer-events: none;
 }
 
@@ -502,8 +506,8 @@ body.wlg-plain.wlg-horizontal .wlg-card .wlg-text {
 	height: 1em;
 }
 
-.wlg-width-off > :not(.checkbox-container) {
-	display: none !important;
+.wlg-settings-card .wlg-width-off > :not(.checkbox-container) {
+	display: none;
 }
 
 .wlg-settings-card .setting-item.wlg-setting-wide {

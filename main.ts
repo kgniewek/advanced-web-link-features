@@ -118,6 +118,7 @@ async function emulateTheme(view: { getWebContentsId(): number }, theme: Screens
 		try {
 			remote = (load("electron") as { remote?: Remote }).remote;
 		} catch {
+			// Ignored on purpose: this step is best effort.
 		}
 		if (!remote?.webContents) remote = load("@electron/remote") as Remote;
 		const dbg = remote.webContents?.fromId(view.getWebContentsId())?.debugger;
@@ -128,6 +129,7 @@ async function emulateTheme(view: { getWebContentsId(): number }, theme: Screens
 			try {
 				dbg.detach();
 			} catch {
+				// Ignored on purpose: this step is best effort.
 			}
 		};
 	} catch {
@@ -447,6 +449,7 @@ function addressLabel(url: URL, full: boolean): string {
 	try {
 		rest = decodeURI(rest);
 	} catch {
+		// Ignored on purpose: this step is best effort.
 	}
 	return host + rest;
 }
@@ -829,7 +832,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 		const decoration = ".list-bullet, .list-collapse-indicator, .collapse-indicator";
 		const content = (node: ChildNode): ChildNode[] =>
 			Array.from(node.childNodes).filter(
-				(n) => !this.isBlank(n) && !(n instanceof HTMLElement && n.matches(decoration)),
+				(n) => !this.isBlank(n) && !(n.instanceOf(HTMLElement) && n.matches(decoration)),
 			);
 
 		let nodes = content(li);
@@ -1233,6 +1236,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 					),
 				);
 			} catch {
+				// Ignored on purpose: this step is best effort.
 			}
 		}
 
@@ -1258,7 +1262,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 			capturePage(): Promise<NativeImg>;
 		};
 		frame.empty();
-		const view = document.createElement("webview") as Webview;
+		const view = createEl("webview" as keyof HTMLElementTagNameMap) as unknown as Webview;
 		view.setAttribute("src", href);
 		view.setAttribute("partition", "persist:advanced-web-link-features");
 		view.addClass("wlg-player-webview");
@@ -1275,6 +1279,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 				}
 				player.backButton.toggleClass("is-disabled", !view.canGoBack());
 			} catch {
+				// Ignored on purpose: this step is best effort.
 			}
 		};
 		view.addEventListener("did-navigate", sync);
@@ -1394,8 +1399,8 @@ export default class WebsiteGalleryPlugin extends Plugin {
 		const MIN_HEIGHT = 240;
 		const barHeight = (): number => bar.getBoundingClientRect().height;
 		const setFrameHeight = (height: number): void => {
-			frame.style.setProperty("aspect-ratio", "auto");
-			frame.style.setProperty("height", `${height}px`);
+			frame.addClass("is-resized");
+			frame.setCssProps({ height: `${height}px` });
 		};
 		type Edge = "e" | "w" | "s" | "se" | "sw";
 		for (const edge of ["e", "w", "s", "se", "sw"] as Edge[]) {
@@ -1457,6 +1462,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 			try {
 				if (this.backTarget?.canGoBack()) this.backTarget.goBack();
 			} catch {
+				// Ignored on purpose: this step is best effort.
 			}
 		});
 		previousButton.addEventListener("click", () => this.stepQueue(-1));
@@ -1553,7 +1559,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 		const height = Math.round((width * 9) / 16);
 		const host = document.body.createDiv({ cls: "wlg-shot-host" });
 		host.setCssProps({ width: `${width}px`, height: `${height}px` });
-		const view = document.createElement("webview") as Webview;
+		const view = createEl("webview" as keyof HTMLElementTagNameMap) as unknown as Webview;
 		view.setAttribute("src", href);
 
 		view.setAttribute("partition", "wlg-screenshot");
@@ -1567,6 +1573,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 					try {
 						view.setAudioMuted(true);
 					} catch {
+						// Ignored on purpose: this step is best effort.
 					}
 					themeReady = emulateTheme(view, this.settings.screenshotTheme);
 				});
@@ -1586,6 +1593,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 			try {
 				await view.insertCSS(HIDE_SCROLLBAR_CSS);
 			} catch {
+				// Ignored on purpose: this step is best effort.
 			}
 			const hideBanners = async (): Promise<void> => {
 				if (!this.settings.hideCookieBanners) return;
@@ -1593,6 +1601,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 					await view.insertCSS(COOKIE_BANNER_CSS);
 					await view.executeJavaScript(COOKIE_BANNER_SCRIPT);
 				} catch {
+					// Ignored on purpose: this step is best effort.
 				}
 			};
 
@@ -1665,6 +1674,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 			try {
 				links.push(...standaloneLinks(await this.app.vault.cachedRead(file)));
 			} catch {
+				// Ignored on purpose: this step is best effort.
 			}
 		}
 		return links;
@@ -1817,6 +1827,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 			try {
 				await this.app.vault.adapter.remove(`${this.screenshotDir()}/${file}`);
 			} catch {
+				// Ignored on purpose: this step is best effort.
 			}
 		}
 		for (const [key] of saved) this.refreshCards(key);
@@ -1831,6 +1842,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 		try {
 			await this.app.vault.adapter.remove(`${this.screenshotDir()}/${file}`);
 		} catch {
+			// Ignored on purpose: this step is best effort.
 		}
 		this.refreshCards(href);
 	}
@@ -1924,7 +1936,6 @@ class WebsiteGallerySettingTab extends PluginSettingTab {
 					s
 						.setLimits(min, max, step)
 						.setValue(settings[key])
-						.setDynamicTooltip()
 						.onChange(async (value) => {
 							settings[key] = value;
 							await commit(false);
@@ -2058,7 +2069,6 @@ class WebsiteGallerySettingTab extends PluginSettingTab {
 					slider
 						.setLimits(700, 2000, 50)
 						.setValue(settings.noteWidth)
-						.setDynamicTooltip()
 						.onChange(async (value) => {
 							settings.noteWidth = value;
 							await commit(false);
@@ -2191,7 +2201,6 @@ class WebsiteGallerySettingTab extends PluginSettingTab {
 				slider
 					.setLimits(10, 32, 1)
 					.setValue(settings.faviconSize)
-					.setDynamicTooltip()
 					.onChange(async (value) => {
 						settings.faviconSize = value;
 						await commit(false);
