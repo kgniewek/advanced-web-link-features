@@ -1,7 +1,7 @@
 {
   "name": "advanced-web-link-features",
   "version": "1.0.0",
-  "description": "Turn website links into preview cards with the site's image, title and domain. Falls back to the favicon when no image is found.",
+  "description": "Turn website links into preview cards with the site's title and domain, plus its image or a screenshot of the page. Open any site in a floating web browser window without leaving your notes.",
   "main": "main.js",
   "scripts": {
     "dev": "esbuild main.ts --bundle --external:obsidian --external:electron --external:@codemirror/* --external:@lezer/* --format=cjs --target=es2020 --sourcemap=inline --outfile=main.js --watch",
