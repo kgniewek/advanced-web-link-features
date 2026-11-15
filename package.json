@@ -1,0 +1,18 @@
+{
+  "name": "advanced-web-link-features",
+  "version": "1.0.0",
+  "description": "Turn website links into preview cards with the site's image, title and domain. Falls back to the favicon when no image is found.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "esbuild main.ts --bundle --external:obsidian --external:electron --external:@codemirror/* --external:@lezer/* --format=cjs --target=es2020 --sourcemap=inline --outfile=main.js --watch",
+    "build": "tsc --noEmit --skipLibCheck && esbuild main.ts --bundle --external:obsidian --external:electron --external:@codemirror/* --external:@lezer/* --format=cjs --target=es2020 --minify --outfile=main.js"
+  },
+  "keywords": ["obsidian", "obsidian-plugin", "links", "preview"],
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.25.0",
+    "obsidian": "latest",
+    "typescript": "^5.6.0"
+  }
+}
