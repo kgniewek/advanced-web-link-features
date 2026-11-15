@@ -1,6 +1,6 @@
 {
   "name": "advanced-web-link-features",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Turn website links into preview cards with the site's title and domain, plus its image or a screenshot of the page. Open any site in a floating web browser window without leaving your notes.",
   "main": "main.js",
   "scripts": {
