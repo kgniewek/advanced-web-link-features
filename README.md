@@ -1,38 +1,20 @@
-\### Your website links, as a gallery of preview cards
-
-
+### Your website links, as a gallery of preview cards
 
 Website links turn into a clean gallery with images, titles, descriptions and domains.
 
+![Website links shown as a gallery of preview cards](images/gallery.webp)
 
-
-!\[Website links shown as a gallery of preview cards](images/gallery.webp)
-
-
-
-\### Open any website without leaving your notes
-
-
+### Open any website without leaving your notes
 
 Click a card to open the site in a floating window that you can drag, resize and keep open while you work.
 
+![Floating website window over a gallery of preview cards](images/floating-window.webp)
 
-
-!\[Floating website window over a gallery of preview cards](images/floating-window.webp)
-
-
-
-\### Screenshots as thumbnails
-
-
+### Screenshots as thumbnails
 
 Replace a card's image with a screenshot of the page, for one link or a whole note at once.
 
-
-
-!\[Cards with screenshot thumbnails and the right-click menu](images/screenshots-as-thumbnails.webp)
-
-
+![Cards with screenshot thumbnails and the right-click menu](images/screenshots-as-thumbnails.webp)
 
 Highlights
 
