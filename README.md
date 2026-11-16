@@ -1,20 +1,38 @@
-### Your website links, as a gallery of preview cards
+\### Your website links, as a gallery of preview cards
+
+
 
 Website links turn into a clean gallery with images, titles, descriptions and domains.
 
-![Website links shown as a gallery of preview cards](images/gallery.webp)
 
-### Open any website without leaving your notes
+
+!\[Website links shown as a gallery of preview cards](images/gallery.webp)
+
+
+
+\### Open any website without leaving your notes
+
+
 
 Click a card to open the site in a floating window that you can drag, resize and keep open while you work.
 
-![Floating website window over a gallery of preview cards](images/floating-window.webp)
 
-### Screenshots as thumbnails
+
+!\[Floating website window over a gallery of preview cards](images/floating-window.webp)
+
+
+
+\### Screenshots as thumbnails
+
+
 
 Replace a card's image with a screenshot of the page, for one link or a whole note at once.
 
-![Cards with screenshot thumbnails and the right-click menu](images/screenshots-as-thumbnails.webp)
+
+
+!\[Cards with screenshot thumbnails and the right-click menu](images/screenshots-as-thumbnails.webp)
+
+
 
 Highlights
 
@@ -126,5 +144,8 @@ Previews and screenshots show content from the websites you link to, which remai
 
 #### License
 
-Copyright (c) 2026 Krzysztof Gniewek. All rights reserved. The source is visible for transparency, but copying, modifying or redistributing it is not permitted. See [LICENSE](LICENSE).
+Copyright (c) 2026 Krzysztof Gniewek (kgniewek). Licensed under the [PolyForm Strict License 1.0.0](LICENSE).
 
+You can install and use the plugin for noncommercial purposes. The source is visible for transparency, but copying, redistributing or publishing modified versions, and commercial use, are not permitted.
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
