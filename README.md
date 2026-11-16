@@ -1,24 +1,46 @@
-Turn website links into preview cards with the site's image, title, description and domain.
+\### Your website links, as a gallery of preview cards
 
-### Open any website without leaving your notes
+
+
+Website links turn into a clean gallery with images, titles, descriptions and domains.
+
+
+
+!\[Website links shown as a gallery of preview cards](images/gallery.webp)
+
+
+
+\### Open any website without leaving your notes
+
+
 
 Click a card to open the site in a floating window that you can drag, resize and keep open while you work.
 
+
+
 !\[Floating website window over a gallery of preview cards](images/floating-window.webp)
 
-### Screenshots and tools, one right-click away
 
-Right-click a card to give it a screenshot thumbnail, fill in missing pictures for a whole gallery or note, or remove the link.
 
-!\[Right-click menu on a website preview card](images/right-click-menu.webp)
+\### Screenshots as thumbnails
 
-### Highlights
+
+
+Replace a card's image with a screenshot of the page, for one link or a whole note at once.
+
+
+
+!\[Cards with screenshot thumbnails and the right-click menu](images/screenshots-as-thumbnails.webp)
+
+
+
+Highlights
 
 * **Preview cards** from plain links and Markdown links, with the website's image, title, description and domain.
 * **Floating website window** you can drag, resize and browse in, without leaving your note.
 * **Screenshot thumbnails** saved on your computer, with scrollbars and cookie banners hidden.
 * **Gallery and note tools** that fill in missing pictures for many links at once.
-* **Works out of the box.** No account or API key needed.
+* **Works out of the box.** No account or API key needed. Cards show in Reading View only.
 
 ### Features
 
@@ -33,7 +55,7 @@ Right-click a card to give it a screenshot thumbnail, fill in missing pictures f
 Each card's picture is chosen in this order:
 
 1. Your saved screenshot of the page, if you took one
-2. Image from the page (`og:image`, `twitter:image`, `image\\\_src`)
+2. Image from the page (`og:image`, `twitter:image`, `image\\\\\\\\\\\\\\\_src`)
 3. Icon declared by the page (apple-touch-icon / `rel="icon"`)
 4. `/favicon.ico` of the site
 5. Google favicon service
@@ -74,28 +96,6 @@ Each card's picture is chosen in this order:
 * Add missing titles to bare website links across your vault. Back up your vault first.
 * Clear the saved page information. Screenshots are kept.
 
-#### Installation
-
-**From Community plugins**
-
-1. Open **Settings → Community plugins** and turn off Restricted mode.
-2. Select **Browse**, search for **Website Link Gallery**, then **Install** and **Enable**.
-
-**Manually**
-
-1. Download `main.js`, `manifest.json` and `styles.css` from the latest release.
-2. Put them in `<your vault>/.obsidian/plugins/website-link-gallery/`.
-3. Reload Obsidian and enable the plugin under **Settings → Community plugins**.
-
-**Build from source**
-
-```bash
-npm install
-npm run build
-```
-
-This creates `main.js`. For development, `npm run dev` rebuilds on every change.
-
 #### Usage
 
 Put website links on their own lines:
@@ -110,14 +110,14 @@ https://www.nasa.gov
 Markdown links work as well, and their text is used as the title:
 
 ```markdown
-\\\[Obsidian Help](https://help.obsidian.md)
+\\\\\\\\\\\\\\\[Obsidian Help](https://help.obsidian.md)
 ```
 
 Links in a list work too, when the item holds only the link:
 
 ```markdown
 - https://example.com
-- \\\[Example docs](https://example.com/docs)
+- \\\\\\\\\\\\\\\[Example docs](https://example.com/docs)
 ```
 
 Links inside regular sentences are left untouched. Switch the note to Reading View to see the cards. All options are under **Settings → Website Link Gallery**.
@@ -131,13 +131,6 @@ The plugin needs the internet to build cards. It contacts:
 * **The website itself** when you open it in the floating window or take a screenshot, using an embedded browser.
 
 Page details are cached in the plugin's data file for 14 days so they aren't requested again. There is no analytics or tracking. Screenshots are saved as image files in the plugin's `screenshots` folder and never leave your computer.
-
-#### Limitations
-
-* Cards show in Reading View only, not in Live Preview or Source mode.
-* The floating window and screenshots need the desktop app.
-* Some sites block automated requests or have no preview data; those fall back to the favicon.
-* A few cookie banners built in unusual ways may still appear in screenshots.
 
 #### Support
 
