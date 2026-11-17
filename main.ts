@@ -2310,12 +2310,24 @@ class WebsiteGallerySettingTab extends PluginSettingTab {
 
 		new Setting(support)
 			.setName("Advanced YouTube Features")
-			.setDesc("Turn YouTube links into thumbnail galleries and watch videos in a floating player.")
+			.setDesc("Turn YouTube links into thumbnail galleries & watch videos in a floating player.")
 			.addButton((button) => {
 				button.setButtonText("View plugin").onClick(() => {
 					window.open("obsidian://show-plugin?id=advanced-youtube-features");
 				});
 				setIcon(button.buttonEl.createSpan({ cls: "wlg-link-icon" }), "puzzle");
+			});
+
+		divider(support);
+
+		new Setting(support)
+			.setName("Advanced Daily Tracker")
+			.setDesc("Track activity with various inputs & turn them into graphs or heatmaps.")
+			.addButton((button) => {
+				button.setButtonText("View plugin").onClick(() => {
+					window.open("obsidian://show-plugin?id=advanced-daily-tracker");
+				});
+				setIcon(button.buttonEl.createSpan({ cls: "adt-link-icon" }), "puzzle");
 			});
 	}
 }
