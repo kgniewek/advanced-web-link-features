@@ -2322,7 +2322,7 @@ class WebsiteGallerySettingTab extends PluginSettingTab {
 
 		new Setting(support)
 			.setName("Advanced Daily Tracker")
-			.setDesc("Track activity with various inputs & turn them into graphs or heatmaps.")
+			.setDesc("Log your activity flexibly & monitor the progress on graphs and heatmaps.")
 			.addButton((button) => {
 				button.setButtonText("View plugin").onClick(() => {
 					window.open("obsidian://show-plugin?id=advanced-daily-tracker");
