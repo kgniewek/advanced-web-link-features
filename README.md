@@ -20,7 +20,7 @@ Replace a card's image with a screenshot of the page, for one link or a whole no
 
 Adjust the card layout, spacing, hover effects, title size, screenshots and more.
 
-![The settings page](images/settings.webp)
+![The settings page](images/settings.png)
 
 Highlights
 
