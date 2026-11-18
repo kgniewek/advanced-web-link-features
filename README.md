@@ -16,6 +16,12 @@ Replace a card's image with a screenshot of the page, for one link or a whole no
 
 ![Cards with screenshot thumbnails and the right-click menu](images/screenshots-as-thumbnails.webp)
 
+### Extensive options
+
+Adjust the card layout, spacing, hover effects, title size, screenshots and more.
+
+![The settings page](images/settings.webp)
+
 Highlights
 
 * **Preview cards** from plain links and Markdown links, with the website's image, title, description and domain.
