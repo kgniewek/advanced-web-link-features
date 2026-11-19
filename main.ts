@@ -19,7 +19,7 @@ import {
 
 type TitleSource = "markdown" | "website";
 type CardLayout = "horizontal" | "vertical";
-type CardBackground = "transparent" | "padded" | "edge";
+type CardBackground = "transparent" | "padded" | "edge" | "overlay";
 type ScreenshotTheme = "light" | "dark";
 
 const CACHE_VERSION = 1;
@@ -596,6 +596,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 			"wlg-vertical",
 			"wlg-plain",
 			"wlg-padded",
+			"wlg-overlay",
 			"wlg-hovercard",
 			"wlg-zoom",
 			"wlg-no-description",
@@ -648,7 +649,7 @@ export default class WebsiteGalleryPlugin extends Plugin {
 
 		if ((s.cardBackground as string) === "visible") s.cardBackground = "edge";
 		if ((s.cardBackground as string) === "invisible") s.cardBackground = "transparent";
-		if (s.cardBackground !== "transparent" && s.cardBackground !== "padded") s.cardBackground = "edge";
+		if (s.cardBackground !== "transparent" && s.cardBackground !== "padded" && s.cardBackground !== "overlay") s.cardBackground = "edge";
 
 		if (Platform.isMobile && data?.columns === undefined) s.columns = 2;
 
@@ -699,10 +700,12 @@ export default class WebsiteGalleryPlugin extends Plugin {
 		const mobile = Platform.isMobile;
 		const plain = s.cardBackground === "transparent";
 
-		const layout = s.layout;
+		// The overlay style is always a full-size thumbnail, so it ignores the horizontal layout.
+		const layout = s.cardBackground === "overlay" ? "vertical" : s.layout;
 		const columns = mobile ? (layout === "horizontal" ? 1 : Math.min(s.columns, 3)) : s.columns;
 		body.classList.toggle("wlg-plain", plain);
 		body.classList.toggle("wlg-padded", s.cardBackground === "padded");
+		body.classList.toggle("wlg-overlay", s.cardBackground === "overlay");
 
 		body.classList.toggle("wlg-horizontal", layout === "horizontal");
 		body.classList.toggle("wlg-vertical", layout === "vertical");
@@ -1983,6 +1986,7 @@ class WebsiteGallerySettingTab extends PluginSettingTab {
 					.addOption("transparent", "Transparent")
 					.addOption("padded", "Padded")
 					.addOption("edge", "Edge to edge")
+					.addOption("overlay", "Overlay")
 					.setValue(settings.cardBackground)
 					.onChange(async (value) => {
 						settings.cardBackground = value as CardBackground;

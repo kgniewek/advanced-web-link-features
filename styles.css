@@ -268,6 +268,37 @@ body.wlg-plain.wlg-horizontal .wlg-card .wlg-text {
 	padding: 0 0 0 var(--size-4-3);
 }
 
+/* Overlay: the thumbnail fills the whole card, title and domain sit on a dark gradient at the bottom */
+
+body.wlg-overlay .wlg-card {
+	position: relative;
+	background-color: #000;
+}
+
+body.wlg-overlay .wlg-card .wlg-text {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	flex: none;
+	padding: 36px 10px 8px;
+	gap: 2px;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 55%, rgba(0, 0, 0, 0) 100%);
+	color: #fff;
+}
+
+body.wlg-overlay .wlg-title {
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+body.wlg-overlay .wlg-description {
+	display: none;
+}
+
+body.wlg-overlay .wlg-domain {
+	color: rgba(255, 255, 255, 0.8);
+}
+
 .wlg-player {
 	position: fixed;
 	top: 50%;
