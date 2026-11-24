@@ -12,6 +12,7 @@ import {
 	PluginSettingTab,
 	Setting,
 	TFile,
+	addIcon,
 	debounce,
 	requestUrl,
 	setIcon,
@@ -30,6 +31,11 @@ const HIDE_SCROLLBAR_CSS = `
 	* { scrollbar-width: none !important; }
 	*::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
 `;
+
+const RIBBON_ICON = "wlg-link-settings";
+// Link glyph with a small cog badge in the bottom-right corner. The mask cuts a gap
+// out of the link around the cog so the two shapes stay readable at ribbon size.
+const RIBBON_ICON_SVG = `<g transform="scale(4.1667)" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><mask id="wlg-link-cog-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24"><rect width="24" height="24" fill="white"/><circle cx="18" cy="18" r="7" fill="black" stroke="none"/></mask><g mask="url(#wlg-link-cog-gap)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g><g transform="translate(12 12) scale(0.5)" stroke-width="3"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></g></g>`;
 
 const COOKIE_BANNER_CSS = [
 	"#onetrust-consent-sdk", "#onetrust-banner-sdk", ".onetrust-pc-dark-filter", "#CybotCookiebotDialog",
@@ -573,10 +579,12 @@ export default class WebsiteGalleryPlugin extends Plugin {
 	} | null = null;
 
 	async onload(): Promise<void> {
+		addIcon(RIBBON_ICON, RIBBON_ICON_SVG);
 		await this.loadSettings();
 		this.refresh(false);
 
 		this.addSettingTab(new WebsiteGallerySettingTab(this.app, this));
+		this.addRibbonIcon(RIBBON_ICON, "Advanced Web Link Features settings", () => this.openSettings());
 		this.registerMarkdownPostProcessor((el, ctx) => {
 			this.renderSource = ctx.sourcePath;
 			this.processSection(el);
@@ -584,6 +592,13 @@ export default class WebsiteGalleryPlugin extends Plugin {
 		this.registerEvent(this.app.workspace.on("editor-paste", (evt, editor) => this.handlePaste(evt, editor)));
 
 		this.app.workspace.onLayoutReady(() => this.refresh(true));
+	}
+
+	private openSettings(): void {
+		const setting = (this.app as unknown as { setting?: { open(): void; openTabById(id: string): void } }).setting;
+		if (!setting) return;
+		setting.open();
+		setting.openTabById(this.manifest.id);
 	}
 
 	onunload(): void {
@@ -1054,6 +1069,8 @@ export default class WebsiteGalleryPlugin extends Plugin {
 					.setIcon("copy")
 					.onClick(() => void this.copyText(titleEl.textContent ?? "", "Title copied.")),
 			);
+			menu.addSeparator();
+			menu.addItem((item) => item.setTitle("Settings").setIcon("settings").onClick(() => this.openSettings()));
 			if (sourcePath) {
 				menu.addSeparator();
 				menu.addItem((item) =>
@@ -2325,6 +2342,18 @@ class WebsiteGallerySettingTab extends PluginSettingTab {
 		divider(support);
 
 		new Setting(support)
+			.setName("Media Cover Gallery")
+			.setDesc("Turn plain text lists of movies, books & albums into cover galleries.")
+			.addButton((button) => {
+				button.setButtonText("View plugin").onClick(() => {
+					window.open("obsidian://show-plugin?id=media-cover-gallery");
+				});
+				setIcon(button.buttonEl.createSpan({ cls: "ytg-link-icon" }), "puzzle");
+			});
+
+		divider(support);
+
+		new Setting(support)
 			.setName("Advanced Daily Tracker")
 			.setDesc("Log your activity flexibly & monitor your progress in graphs and heatmaps.")
 			.addButton((button) => {
@@ -2333,5 +2362,6 @@ class WebsiteGallerySettingTab extends PluginSettingTab {
 				});
 				setIcon(button.buttonEl.createSpan({ cls: "ytg-link-icon" }), "puzzle");
 			});
+
 	}
 }
